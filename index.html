@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuzo</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Добро пожаловать в Kuzo!</h1>
+  <p>Твоя соцсеть нового поколения</p>
+  <script src="main.js"></script>
+</body>
+</html>
+
+<form id="authForm">
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Пароль" required />
+  <button type="submit">Войти / Зарегистрироваться</button>
+</form>
+<div id="status"></div>
+
+<script type="module" src="auth.js"></script>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Kuzo — вход</title>
+</head>
+<body>
+  <h1>Добро пожаловать в Kuzo</h1>
+  <button id="login">Войти через Google</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHQi_yIl3aK8_jnO1tH7d5Xe7LMqo6kH8",
+      authDomain: "kuzo-9f025.firebaseapp.com",
+      projectId: "kuzo-9f025",
+      storageBucket: "kuzo-9f025.appspot.com",
+      messagingSenderId: "535323152743",
+      appId: "1:535323152743:web:0cbaf7d5f1b51f19a85fc2",
+      measurementId: "G-G42M45F68J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("login").addEventListener("click", () => {
+      signInWithPopup(auth, provider).then(result => {
+        alert("Привет, " + result.user.displayName);
+      }).catch(error => {
+        console.error(error);
+        alert("Ошибка входа: " + error.message);
+      });
+    });
+  </script>
+</body>
+</html>
