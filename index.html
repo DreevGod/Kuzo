@@ -38,6 +38,43 @@
         .then(result => alert("Привет, " + result.user.displayName))
         .catch(err => alert("Ошибка: " + err.message));
     });
+  </script>   <!-- в теле страницы, под кнопкой -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+
+    // Твой firebaseConfig
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHQi_yIl3aK8_jnO1tH7d5Xe7LMqo6kH8",
+      authDomain: "kuzo-9f025.firebaseapp.com",
+      projectId: "kuzo-9f025",
+      storageBucket: "kuzo-9f025.appspot.com",
+      messagingSenderId: "535323152743",
+      appId: "1:535323152743:web:0cbaf7d5f1b51f19a85fc2",
+      measurementId: "G-G42M45F68J"
+    };
+
+    // Инициализируем Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Обработчик клика
+    document.getElementById("login").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then(result => {
+          // Показываем имя
+          alert("Привет, " + result.user.displayName);
+        })
+        .catch(err => {
+          alert("Ошибка входа: " + err.message);
+        });
+    });
   </script>
+
 </body>
 </html>
